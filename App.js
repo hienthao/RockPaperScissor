@@ -27,32 +27,27 @@ export default function App() {
   const [notifyText, setNotifyText] = useState("DRAW");
 
   function onActionPress(actionPlay) {
-    setOurAction(actionPlay);
+    var currentComputerAction = ROCK;
+    var currentComputerAction = Math.floor(Math.random() * 3);
 
-    switch (Math.floor(Math.random() * 3)) {
-      case 0:
-        setComputerAction (ROCK);
-      case 1:
-        setComputerAction (PAPER);
-      case 2:
-        setComputerAction (SCISSOR);
-    }
-
-    if (ourAction === computerAction) {
+    if (actionPlay == ROCK && currentComputerAction == SCISSOR) {
+      setNotifyText("WIN");
+    } else if (actionPlay == ROCK && currentComputerAction == PAPER) {
+      setNotifyText("LOSE");
+    } else if (actionPlay == PAPER && currentComputerAction == ROCK) {
+      setNotifyText("WIN");
+    } else if (actionPlay == PAPER && currentComputerAction == SCISSOR) {
+      setNotifyText("LOSE");
+    } else if (actionPlay == SCISSOR && currentComputerAction == PAPER) {
+      setNotifyText("WIN");
+    } else if (actionPlay == SCISSOR && currentComputerAction == ROCK) {
+      setNotifyText("LOSE");
+    } else {
       setNotifyText("DRAW");
-    } else if (ourAction == ROCK && computerAction == SCISSOR) {
-      setNotifyText("WIN");
-    } else if (ourAction == ROCK && computerAction == PAPER) {
-      setNotifyText("LOSE");
-    } else if (ourAction == PAPER && computerAction == ROCK) {
-      setNotifyText("WIN");
-    } else if (ourAction == PAPER && computerAction == SCISSOR) {
-      setNotifyText("LOSE");
-    } else if (ourAction == SCISSOR && computerAction == PAPER) {
-      setNotifyText("WIN");
-    } else if (ourAction == SCISSOR && computerAction == ROCK) {
-      setNotifyText("LOSE");
     }
+
+    setOurAction(actionPlay);
+    setComputerAction(currentComputerAction);
   }
 
   return (
@@ -68,7 +63,7 @@ export default function App() {
             source={
               ourAction === ROCK
                 ? RockRight
-                : ourAction == PAPER
+                : ourAction === PAPER
                 ? PaperRight
                 : ScissorRight
             }
@@ -81,7 +76,7 @@ export default function App() {
             source={
               computerAction === ROCK
                 ? RockLeft
-                : ourAction == PAPER
+                : computerAction === PAPER
                 ? PaperLeft
                 : ScissorLeft
             }
